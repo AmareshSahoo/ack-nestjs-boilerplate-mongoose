@@ -12,6 +12,19 @@ export function AppHelloDoc(): MethodDecorator {
     );
 }
 
-export function AppHelloTimeoutDoc(): MethodDecorator {
-    return applyDecorators(Doc<void>('app.helloTimeout'));
+export function AppHelloApiKeyDoc(): MethodDecorator {
+    return applyDecorators(
+        Doc<AppHelloSerialization>('app.helloApiKey', {
+            auth: {
+                apiKey: true,
+            },
+            requestHeader: {
+                timestamp: true,
+                userAgent: true,
+            },
+            response: {
+                classSerialization: AppHelloSerialization,
+            },
+        })
+    );
 }

@@ -182,37 +182,42 @@ describe('ApiKeyService', () => {
         it('should return an success', async () => {
             const result: ApiKeyEntity[] = await apiKeyService.findAll(
                 {},
-                { limit: 1, skip: 1 }
+                { paging: { limit: 1, skip: 1 } }
             );
             jest.spyOn(apiKeyService, 'findAll').mockImplementation(
                 async () => result
             );
 
-            expect(await apiKeyService.findAll({}, { limit: 1, skip: 1 })).toBe(
-                result
-            );
+            expect(
+                await apiKeyService.findAll(
+                    {},
+                    { paging: { limit: 1, skip: 1 } }
+                )
+            ).toBe(result);
         });
 
         it('should return an success with limit and offset', async () => {
             const result: ApiKeyEntity[] = await apiKeyService.findAll(
                 {},
-                { limit: 1, skip: 1 }
+                { paging: { limit: 1, skip: 1 } }
             );
             jest.spyOn(apiKeyService, 'findAll').mockImplementation(
                 async () => result
             );
 
-            expect(await apiKeyService.findAll({}, { limit: 1, skip: 1 })).toBe(
-                result
-            );
+            expect(
+                await apiKeyService.findAll(
+                    {},
+                    { paging: { limit: 1, skip: 1 } }
+                )
+            ).toBe(result);
         });
 
         it('should return an success with limit, offset, and sort', async () => {
             const result: ApiKeyEntity[] = await apiKeyService.findAll(
                 {},
                 {
-                    limit: 1,
-                    skip: 1,
+                    paging: { limit: 1, skip: 1 },
                     sort: { name: ENUM_PAGINATION_SORT_TYPE.ASC },
                 }
             );
@@ -224,8 +229,7 @@ describe('ApiKeyService', () => {
                 await apiKeyService.findAll(
                     {},
                     {
-                        limit: 1,
-                        skip: 1,
+                        paging: { limit: 1, skip: 1 },
                         sort: { name: ENUM_PAGINATION_SORT_TYPE.ASC },
                     }
                 )
@@ -481,70 +485,6 @@ describe('ApiKeyService', () => {
                     },
                     findOne.encryptionKey,
                     authApi.passphrase
-                )
-            ).toBe(result);
-        });
-    });
-
-    describe('createBasicToken', () => {
-        it('should return an success', async () => {
-            const clientId = faker.random.alphaNumeric(10);
-            const clientSecret = faker.random.alphaNumeric(10);
-            const result: string = await apiKeyService.createBasicToken(
-                clientId,
-                clientSecret
-            );
-            jest.spyOn(apiKeyService, 'createBasicToken').mockImplementation(
-                async () => result
-            );
-
-            expect(
-                await apiKeyService.createBasicToken(clientId, clientSecret)
-            ).toBe(result);
-        });
-    });
-
-    describe('validateBasicToken', () => {
-        it('should return an success', async () => {
-            const clientId = faker.random.alphaNumeric(10);
-            const clientSecret = faker.random.alphaNumeric(10);
-            const basicToken: string = await apiKeyService.createBasicToken(
-                clientId,
-                clientSecret
-            );
-            const result: boolean = await apiKeyService.validateBasicToken(
-                basicToken,
-                basicToken
-            );
-            jest.spyOn(apiKeyService, 'validateBasicToken').mockImplementation(
-                async () => result
-            );
-
-            expect(
-                await apiKeyService.validateBasicToken(basicToken, basicToken)
-            ).toBe(result);
-        });
-
-        it('should return an failed', async () => {
-            const clientId = faker.random.alphaNumeric(10);
-            const clientSecret = faker.random.alphaNumeric(10);
-            const clientSecret2 = faker.random.alphaNumeric(10);
-            const basicToken: string = await apiKeyService.createBasicToken(
-                clientId,
-                clientSecret
-            );
-            const result: boolean = await apiKeyService.validateBasicToken(
-                basicToken,
-                clientSecret2
-            );
-            jest.spyOn(apiKeyService, 'validateBasicToken').mockImplementation(
-                async () => result
-            );
-
-            expect(
-                await apiKeyService.validateBasicToken(
-                    basicToken,
-                    clientSecret2
                 )
             ).toBe(result);
         });
