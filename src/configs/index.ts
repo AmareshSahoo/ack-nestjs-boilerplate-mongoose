@@ -4,10 +4,10 @@ import DatabaseConfig from './database.config';
 import HelperConfig from './helper.config';
 import AwsConfig from './aws.config';
 import FileConfig from './file.config';
-import MiddlewareConfig from './middleware.config';
 import RequestConfig from './request.config';
 import DocConfig from './doc.config';
 import DebuggerConfig from './debugger.config';
+import UserConfig from './user.config';
 
 export default [
     AppConfig,
@@ -15,7 +15,7 @@ export default [
     DatabaseConfig,
     HelperConfig,
     AwsConfig,
-    MiddlewareConfig,
+    UserConfig,
     RequestConfig,
     FileConfig,
     DocConfig,
